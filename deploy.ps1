@@ -1,10 +1,10 @@
-# create K8s cluster
-eksctl create cluster -n P3-K8s --version 1.23 --region us-east-2 --ssh-access --ssh-public-key=eks_node.pub -t m5.large --profile superuser -M 3
+# # create K8s cluster
+# eksctl create cluster -n P3-K8s --version 1.23 --region us-east-2 --ssh-access --ssh-public-key=eks_node.pub -t m5.large --profile superuser -M 3
 
-# create-env
-kubectl create secret generic aws --from-file cfg=$HOME/.aws/config --from-file creds=$HOME/.aws/credentials
-kubectl create secret generic p3-secrets --from-env-file secrets.env
-kubectl create configmap env --from-env-file configmap.env
+# # create-env
+# kubectl create secret generic aws --from-file cfg=$HOME/.aws/config --from-file creds=$HOME/.aws/credentials
+# kubectl create secret generic p3-secrets --from-env-file secrets.env
+# kubectl create configmap env --from-env-file configmap.env
 
 # deploy
 kubectl apply -f backend-feed-deployment.yml

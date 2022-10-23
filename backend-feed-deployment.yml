@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feed
+spec:
+  selector:
+    matchLabels:
+      app: backend-feed
+  template:
+    metadata:
+      labels:
+        app: backend-feed
+    spec:
+      containers:
+      - name: backend-feed
+        image: machariavck/udagram-api-feed
+        volumeMounts:
+          - mountPath: /root/.aws
+            name: aws-volume
+            readOnly: true
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: p3-secrets
+                key: POSTGRES_USERNAME
+          
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: p3-secrets
+                key: POSTGRES_PASSWORD
+          
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: p3-secrets
+                key: JWT_SECRET
+
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: POSTGRES_HOST
+
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: POSTGRES_DB
+          
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: AWS_REGION
+          
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: AWS_PROFILE
+          
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: AWS_BUCKET
+          
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env
+                key: URL
+      volumes:
+        - name: aws-volume
+          secret:
+            secretName: aws
+            items:
+              - key: cfg
+                path: config
+              - key: creds
+                path: credentials
+                
