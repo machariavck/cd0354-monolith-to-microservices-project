@@ -6,6 +6,7 @@
 *.log
 *.tmp
 *.tmp.*
+*.pem
 log.txt
 *.sublime-project
 *.sublime-workspace
@@ -31,6 +32,10 @@ $RECYCLE.BIN/
 postgres_dev/
 logfile
 
+*.pub
+*.env
+set_env*
+.env
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
