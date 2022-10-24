@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: machariavck/udagram-frontend
+        image: machariavck/udagram-frontend:v6
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "128Mi"
