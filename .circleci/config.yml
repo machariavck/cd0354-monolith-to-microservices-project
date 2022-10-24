@@ -19,14 +19,14 @@ jobs:
             docker tag udagram-reverseproxy $DOCKER_LOGIN/udagram-reverseproxy
             docker tag udagram-api-user $DOCKER_LOGIN/udagram-api-user
             docker tag udagram-api-feed $DOCKER_LOGIN/udagram-api-feed
-            docker tag udagram-frontend $DOCKER_LOGIN/udagram-frontend
+            docker tag udagram-frontend $DOCKER_LOGIN/udagram-frontend:v6
       - run:
           name: "Pushing the images to the registry.."
           command: |
             docker push $DOCKER_LOGIN/udagram-reverseproxy
             docker push $DOCKER_LOGIN/udagram-api-user
             docker push $DOCKER_LOGIN/udagram-api-feed
-            docker push $DOCKER_LOGIN/udagram-frontend
+            docker push $DOCKER_LOGIN/udagram-frontend:v6
       - run:
           name: "its done"
           command: |
