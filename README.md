@@ -30,6 +30,7 @@ kubectl describe services
 ![Image](./screenshots/describe_svc_3.png)
 
 * Verifies that horizontal scaling is set against CPU usage
+P.S. a metrics server had to be installed
 ```bash
 kubectl describe hpa
 ```
@@ -41,3 +42,10 @@ kubectl describe hpa
 kubectl logs {pod_name}
 ```
 ![Image](./screenshots/logging_activity.png)
+
+
+## Successful Deployment
+* Screenshots showing interaction with the app
+![Image](./screenshots/successful_deployment_1.png)
+![Image](./screenshots/successful_deployment_2.png)
+
