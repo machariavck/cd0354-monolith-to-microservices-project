@@ -2,7 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reverse-proxy
+  labels:
+    app: reverse-proxy
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: reverse-proxy
@@ -13,7 +16,8 @@ spec:
     spec:
       containers:
       - name: reverse-proxy
-        image: machariavck/udagram-reverseproxy
+        image: machariavck/udagram-reverseproxy:latest
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "256Mi"
@@ -23,3 +27,4 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8080
+      restartPolicy: Always

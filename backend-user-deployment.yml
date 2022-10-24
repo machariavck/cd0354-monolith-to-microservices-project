@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: backend-user
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: backend-user
@@ -12,9 +13,9 @@ spec:
         app: backend-user
     spec:
       containers:
-
       - name: backend-user
-        image: docker.io/machariavck/udagram-api-user
+        image: machariavck/udagram-api-user:latest
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "128Mi"
@@ -24,57 +25,8 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8080
-        env:
-        - name: POSTGRES_USERNAME
-          valueFrom:
-            secretKeyRef:
+        envFrom:
+          - configMapRef:
+              name: env
+          - secretRef:
               name: p3-secrets
-              key: POSTGRES_USERNAME
-        
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: p3-secrets
-              key: POSTGRES_PASSWORD
-
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: POSTGRES_DB
-        
-        - name: POSTGRES_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: POSTGRES_HOST
-
-        - name: AWS_REGION
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: AWS_REGION
-        
-        - name: AWS_PROFILE
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: AWS_PROFILE
-        
-        - name: AWS_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: AWS_BUCKET
-        
-        - name: URL
-          valueFrom:
-            configMapKeyRef:
-              name: env
-              key: URL
-        
-        - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: p3-secrets
-              key: JWT_SECRET
